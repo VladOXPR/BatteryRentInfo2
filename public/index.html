@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Battery Rental Status</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,15 +20,14 @@
             overflow: hidden; /* Prevents any scrolling */ /* Centers content horizontally */
         }
 
-
         #output {
-            margin: 20px 0;
+            margin: 0px;
         }
 
         .view-locations-btn {
             display: block; /* Make it take the full width */
             width: 100%; /* Full width minus 20px margin on each side */
-            margin: 20px auto; /* Center the button and add top margin */
+            margin: 8px auto; /* Center the button and add top margin */
             padding: 10px 20px;
             font-size: 16px;
             color: white;
@@ -34,7 +36,6 @@
             border-radius: 10px;
             cursor: pointer;
         }
-
 
         .view-locations-btn:hover {
             background-color: #1D2B34;
@@ -48,47 +49,109 @@
             color: #1F1F1F;
         }
 
-        .sms-button {
-            display: inline-block;
-            padding: 10px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            color: white;
-            background-color: #007bff;
-            border: none;
-            border-radius: 5px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .sms-button:hover {
-            background-color: #0056b3;
-        }
-
         #elapsedTime {
+            margin: 0px;
             font-size: 75px; /* Make the text larger */
             font-weight: bold; /* Make the text bold */
             color: #FFFFFF; /* Gold color for visibility */; /* Dark background to make it stand out */
-            padding: 5px 10px; /* Add some padding */
+            padding: 0px; /* Add some padding */
             border-radius: 5px; /* Slightly rounded corners */
             display: inline-block;
         }
 
         #amountPaid {
+            margin-top: -10px;
+            margin-bottom: -10px;
+            margin-left: 0px;
+            margin-right: 0px;
             font-size: 75px; /* Make the text larger */
             font-family: "Jersey 10", serif;
             font-weight: 400;
             font-style: normal; /* Make the text bold */
-            color: #7DDB2A; /* Gold color for visibility */
-            background-color: #000; /* Dark background to make it stand out */
-            padding: 10px; /* Add some padding */
+            color: #7DDB2A; /* Gold color for visibility */ /* Dark background to make it stand out */
+            padding: 0px; /* Add some padding */
             border-radius: 10px; /* Slightly rounded corners */
             display: inline-block; /* Keep it inline but apply styles properly */
         }
+
+        #amountPaidContainer {
+            background-color: #000000;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: 1px solid #262626;
+            text-align: left;/* Full width minus 20px margin on each side */
+        }
+
+        #elapsedTimeContainer {
+            margin: 40px;
+        }
+
+        .support-btn {
+            display: block;
+            width: 100%; /* Slightly less margin to be close to the other button */
+            color: white;
+            background-color: #1F1F1F;
+            border: 1px solid #262626;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            padding: 20px;
+            margin-top: 8px;
+        }
+
+        .support-btn:hover {
+            background-color: #262626;
+        }
+
     </style>
 </head>
 <body>
-<div id="output"></div>
+<div id="output">
+    <div id="elapsedTimeContainer">
+        <p style="
+                            margin: 0px;
+                            font-size: 25px; /* Make the text larger */
+                            font-weight: bold;
+                            color: #CCCCCC;
+                        ">
+            Rent Duration
+        </p>
+        <p id="elapsedTime">00:00:00</p>
+    </div>
+
+    <hr style="height: 1px; background-color: #262626; border: none;">
+
+    <div id="amountPaidContainer">
+        <p style="
+                            margin: 0px;
+                            font-size: 25px;
+                            font-family: 'Jersey 10', cursive;
+                            font-weight: 400;
+                            font-style: normal;
+                            color: #CCCCCC;
+                            width: fit-content;
+                        ">
+            Paid
+        </p>
+        <p id="amountPaid">$0.00</p>
+    </div>
+</div>
+
+<button class="support-btn" onclick="contactSupport()">
+    <div style="
+        font-size: 25px;
+    ">
+        Customer Support
+    </div>
+    <div style="
+        font-size: 13px;
+        color: #9D9D9D;
+        margin-top: 10px;
+    ">
+        Questions, Complaints, Refunds
+    </div>
+</button>
+
 <button class="view-locations-btn" onclick="window.location.href='https://cuublocations.glide.page/dl/d0a5f4';">
     Return At Any Location
 </button>
@@ -99,52 +162,52 @@
 <script>
     const { DateTime } = luxon;
     let borrowTime = null;
-    
+
     function convertChinaToChicagoTime(chinaTimeStr) {
         return chinaTimeStr ? DateTime.fromISO(chinaTimeStr, { zone: "Asia/Shanghai" }).setZone("America/Chicago") : null;
     }
-    
+
     function getTimeElapsed(startTime) {
         if (!startTime) return "Invalid Time";
         const diff = DateTime.now().setZone("America/Chicago").diff(startTime, ['hours', 'minutes', 'seconds']);
         return `${diff.hours}:${diff.minutes}:${Math.floor(diff.seconds)}`;
     }
-    
+
     function calculateAmountPaid(startTime) {
         if (!startTime) return "$0.00";
         return `$${(Math.ceil(DateTime.now().diff(startTime, 'hours').hours) * 3).toFixed(2)}`;
     }
-    
+
     function updateElapsedTime() {
         if (borrowTime) {
             document.getElementById("elapsedTime").textContent = getTimeElapsed(borrowTime);
             document.getElementById("amountPaid").textContent = calculateAmountPaid(borrowTime);
         }
     }
-    
+
     async function fetchBatteryData() {
         const batteryId = window.location.pathname.substring(1);
         const outputDiv = document.getElementById("output");
         const batteryIdDisplay = document.getElementById("batteryIdDisplay");
-    
+
         if (!batteryId) {
             outputDiv.innerHTML = "<p><strong>No Battery ID provided in URL.</strong></p>";
             batteryIdDisplay.textContent = "";
             return;
         }
-    
+
         batteryIdDisplay.textContent = `${batteryId}`;
         const host = window.location.hostname;
         const port = window.location.port ? `:${window.location.port}` : '';
-        const apiUrl = `https://${host}${port}/api/battery/${batteryId}`;
-    
+        const apiUrl = `http://${host}${port}/api/battery/${batteryId}`;
+
         try {
             const response = await fetch(apiUrl);
             if (!response.ok) throw new Error("Battery not found.");
-    
+
             const data = await response.json();
             outputDiv.innerHTML = "";
-    
+
             if (data.pGhtime) {
                 const chiReturnTime = convertChinaToChicagoTime(data.pGhtime);
                 outputDiv.innerHTML = `<p><strong>Battery Returned:</strong> ${chiReturnTime ? chiReturnTime.toFormat("yyyy-MM-dd HH:mm:ss") : "Invalid Return Time"}</p>`;
@@ -152,9 +215,35 @@
                 borrowTime = convertChinaToChicagoTime(data.pBorrowtime);
                 if (borrowTime) {
                     outputDiv.innerHTML = `
-                        <p><strong></strong> <span id="elapsedTime">${getTimeElapsed(borrowTime)}</span></p>
-                        <p><strong></strong> <span id="amountPaid">${calculateAmountPaid(borrowTime)}</span></p>
-                    `;
+                    <div id="elapsedTimeContainer">
+                        <p style="
+                            margin: 0px;
+                            font-size: 25px; /* Make the text larger */
+                            font-weight: bold;
+                            color: #CCCCCC;
+                        ">
+                            Rent Duration
+                        </p>
+                        <p id="elapsedTime">${getTimeElapsed(borrowTime)}</p>
+                    </div>
+
+                    <hr style="height: 1px; background-color: #262626; border: none;">
+
+                    <div id="amountPaidContainer">
+                        <p style="
+                            margin: 0px;
+                            font-size: 25px;
+                            font-family: 'Jersey 10', cursive;
+                            font-weight: 400;
+                            font-style: normal;
+                            color: #CCCCCC;
+                            width: fit-content;
+                        ">
+                            Paid
+                        </p>
+                        <p id="amountPaid">${calculateAmountPaid(borrowTime)}</p>
+                    </div>
+                `;
                 } else {
                     outputDiv.innerHTML = `<p><strong>Invalid Borrow Time</strong></p>`;
                 }
@@ -164,12 +253,20 @@
             console.error("Error:", error.message);
         }
     }
-    
+
+
     window.onload = () => {
         fetchBatteryData();
         setInterval(updateElapsedTime, 1000);
         setInterval(fetchBatteryData, 10000);
     };
+
+    function contactSupport() {
+        const batteryId = window.location.pathname.substring(1) || "Unknown Battery";
+        const message = encodeURIComponent(`The number on my battery is: ${batteryId}`);
+        window.location.href = `sms:7736384996?body=${message}`;
+    }
+
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
