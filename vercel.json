@@ -8,8 +8,9 @@
   ],
   "routes": [
     {
-      "src": "/(.*)\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff2?|ttf|eot)$",
+      "src": "/(.*)",
       "dest": "public/server.js"
-    },
+    }
   ]
 }
+
