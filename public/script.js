@@ -37,7 +37,7 @@ async function fetchBatteryData() {
     batteryIdDisplay.textContent = `${batteryId}`;
     const host = window.location.hostname;
     const port = window.location.port ? `:${window.location.port}` : '';
-    const apiUrl = `http://${host}${port}/api/battery/${batteryId}`;
+    const apiUrl = `https://${host}${port}/api/battery/${batteryId}`;
 
     try {
         const response = await fetch(apiUrl);
