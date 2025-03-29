@@ -83,7 +83,9 @@
         }
 
         #elapsedTimeContainer {
-            margin: 40px;
+            Margin-top: 40px;
+            Margin-bottom: 40px;
+            text-align: Center;
         }
 
         .support-btn {
@@ -113,10 +115,11 @@
             font-size: 25px; /* Make the text larger */
             font-weight: bold;
             color: #CCCCCC;
+
         ">
             Rent Duration
         </p>
-        <p id="elapsedTime">00:00:00</p>
+        <p id="elapsedTime">Loading...</p>
     </div>
 
     <hr style="height: 1px; background-color: #262626; border: none;">
@@ -133,7 +136,7 @@
         ">
             Paid
         </p>
-        <p id="amountPaid">$0.00</p>
+        <p id="amountPaid">Loading...</p>
     </div>
 </div>
 
@@ -215,7 +218,7 @@
         const batteryIdDisplay = document.getElementById("batteryIdDisplay");
 
         if (!batteryId) {
-            outputDiv.innerHTML = "<p><strong>No Battery ID provided in URL.</strong></p>";
+            outputDiv.innerHTML = "<p><strong></strong></p>";
             batteryIdDisplay.textContent = "";
             return;
         }
@@ -223,11 +226,11 @@
         batteryIdDisplay.textContent = `${batteryId}`;
         const host = window.location.hostname;
         const port = window.location.port ? `:${window.location.port}` : '';
-        const apiUrl = `https://${host}${port}/api/battery/${batteryId}`;
+        const apiUrl = `http://${host}${port}/api/battery/${batteryId}`;
 
         try {
             const response = await fetch(apiUrl);
-            if (!response.ok) throw new Error("Battery not found.");
+            if (!response.ok) throw ("");
 
             const data = await response.json();
             outputDiv.innerHTML = "";
@@ -331,4 +334,3 @@
 <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 </body>
 </html>
-
