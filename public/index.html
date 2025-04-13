@@ -195,7 +195,20 @@
 
     function calculateAmountPaid(startTime) {
         if (!startTime) return "$0.00";
-        return `$${(Math.ceil(DateTime.now().diff(startTime, 'hours').hours) * 3).toFixed(2)}`;
+
+        const hoursElapsed = DateTime.now().diff(startTime, 'hours').hours;
+
+        let amount = 0;
+
+        if (hoursElapsed <= 1) {
+            amount = 3;
+        } else if (hoursElapsed <= 24) {
+            amount = 6;
+        } else {
+            amount = 40;
+        }
+
+        return `$${amount.toFixed(2)}`;
     }
 
     // function calculateAmountPaid(startTime) {
