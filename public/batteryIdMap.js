@@ -46,7 +46,7 @@ const batteryIdMap = {
     "A044": "FECB075E8F",
     "A045": "FECB075E8D",
     "A046": "FECB075E5A",
-    "A047": "FECB075E6B",
+    "A047": "FECB075EA1",
     "A048": "FECB075E62",
     
     "A049": "FECB075E5E",
