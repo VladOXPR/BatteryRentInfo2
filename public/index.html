@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 10px; /* Remove extra padding */ /* Prevents unwanted shifting */
-            background-color: #171717; /* Dark background */
+            background-color: #000000; /* Black background */
             color: #FFFFFF; /* White text for contrast */
             height: 100vh; /* Full viewport height */
             overflow: hidden; /* Prevents any scrolling */ /* Centers content horizontally */
@@ -64,14 +64,21 @@
             margin-bottom: -10px;
             margin-left: 0px;
             margin-right: 0px;
-            font-size: 75px; /* Make the text larger */
-            font-family: "Jersey 10", serif;
-            font-weight: 400;
-            font-style: normal; /* Make the text bold */
-            color: #009FFF; /* Gold color for visibility */ /* Dark background to make it stand out */
+            font-size: 50px; /* Smaller size */
+            font-family: Arial, sans-serif; /* Same as rent duration */
+            font-weight: bold; /* Bold like rent duration */
+            font-style: normal;
+            color: #009FFF; /* Blue color for visibility */
             padding: 0px; /* Add some padding */
             border-radius: 10px; /* Slightly rounded corners */
             display: inline-block; /* Keep it inline but apply styles properly */
+        }
+
+        /* Container wrapper for side-by-side layout */
+        .containers-wrapper {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
         }
 
         #amountPaidContainer {
@@ -80,6 +87,38 @@
             padding: 10px 20px;
             border: 1px solid #262626;
             text-align: left;
+            flex: 1;
+        }
+
+        /* New container with #FE402E background */
+        #newContainer {
+            background-color: #FE402E;
+            border-radius: 10px;
+            padding: 10px 20px;
+            border: 1px solid #262626;
+            text-align: left;
+            flex: 1;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #newContainer:hover {
+            background-color: #d63426;
+        }
+
+        #newContainerValue {
+            margin-top: -10px;
+            margin-bottom: -10px;
+            margin-left: 0px;
+            margin-right: 0px;
+            font-size: 75px;
+            font-family: "Jersey 10", serif;
+            font-weight: 400;
+            font-style: normal;
+            color: #FFFFFF;
+            padding: 0px;
+            border-radius: 10px;
+            display: inline-block;
         }
 
         #elapsedTimeContainer {
@@ -105,6 +144,8 @@
             background-color: #262626;
         }
 
+
+
     </style>
 </head>
 <body>
@@ -124,19 +165,24 @@
 
     <hr style="height: 1px; background-color: #262626; border: none;">
 
-    <div id="amountPaidContainer">
-        <p style="
-            margin: 0px;
-            font-size: 25px;
-            font-family: 'Jersey 10', cursive;
-            font-weight: 400;
-            font-style: normal;
-            color: #CCCCCC;
-            width: fit-content;
-        ">
-            Paid
-        </p>
-        <p id="amountPaid">Loading...</p>
+    <div class="containers-wrapper">
+        <div id="amountPaidContainer">
+            <p style="
+                margin: 0px;
+                font-size: 25px;
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-style: normal;
+                color: #CCCCCC;
+                width: fit-content;
+            ">
+                Paid
+            </p>
+            <p id="amountPaid">Loading...</p>
+        </div>
+
+        <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+        </div>
     </div>
 </div>
 
@@ -248,19 +294,24 @@
 
             <hr style="height: 1px; background-color: #262626; border: none;">
 
-            <div id="amountPaidContainer">
-                <p style="
-                    margin: 0px;
-                    font-size: 25px;
-                    font-family: 'Jersey 10', cursive;
-                    font-weight: 400;
-                    font-style: normal;
-                    color: #CCCCCC;
-                    width: fit-content;
-                ">
-                    Paid
-                </p>
-                <p id="amountPaid">$3.00</p>
+            <div class="containers-wrapper">
+                <div id="amountPaidContainer">
+                    <p style="
+                        margin: 0px;
+                        font-size: 25px;
+                        font-family: Arial, sans-serif;
+                        font-weight: bold;
+                        font-style: normal;
+                        color: #CCCCCC;
+                        width: fit-content;
+                    ">
+                        Paid
+                    </p>
+                    <p id="amountPaid" style="font-family: Arial, sans-serif; font-weight: bold; font-size: 50px;">$3.00</p>
+                </div>
+
+                <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+                </div>
             </div>
         `;
             return;
@@ -296,19 +347,24 @@
 
                 <hr style="height: 1px; background-color: #262626; border: none;">
 
-                <div id="amountPaidContainer">
-                    <p style="
-                        margin: 0px;
-                        font-size: 25px;
-                        font-family: 'Jersey 10', cursive;
-                        font-weight: 400;
-                        font-style: normal;
-                        color: #CCCCCC;
-                        width: fit-content;
-                    ">
-                        Paid
-                    </p>
-                    <p id="amountPaid">${finalAmountPaid}</p>
+                <div class="containers-wrapper">
+                    <div id="amountPaidContainer">
+                        <p style="
+                            margin: 0px;
+                            font-size: 25px;
+                            font-family: Arial, sans-serif;
+                            font-weight: bold;
+                            font-style: normal;
+                            color: #CCCCCC;
+                            width: fit-content;
+                        ">
+                            Paid
+                        </p>
+                        <p id="amountPaid" style="font-family: Arial, sans-serif; font-weight: bold; font-size: 50px;">${finalAmountPaid}</p>
+                    </div>
+
+                    <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+                    </div>
                 </div>
             `;
             } else {
@@ -329,19 +385,24 @@
 
                     <hr style="height: 1px; background-color: #262626; border: none;">
 
-                    <div id="amountPaidContainer">
-                        <p style="
-                            margin: 0px;
-                            font-size: 25px;
-                            font-family: 'Jersey 10', cursive;
-                            font-weight: 400;
-                            font-style: normal;
-                            color: #CCCCCC;
-                            width: fit-content;
-                        ">
-                            Paid
-                        </p>
-                        <p id="amountPaid">${calculateAmountPaid(borrowTime)}</p>
+                    <div class="containers-wrapper">
+                        <div id="amountPaidContainer">
+                            <p style="
+                                margin: 0px;
+                                font-size: 25px;
+                                font-family: Arial, sans-serif;
+                                font-weight: bold;
+                                font-style: normal;
+                                color: #CCCCCC;
+                                width: fit-content;
+                            ">
+                                Paid
+                            </p>
+                            <p id="amountPaid" style="font-family: Arial, sans-serif; font-weight: bold; font-size: 50px;">${calculateAmountPaid(borrowTime)}</p>
+                        </div>
+
+                        <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+                        </div>
                     </div>
                 `;
                 } else {
