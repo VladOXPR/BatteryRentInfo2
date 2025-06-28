@@ -30,15 +30,17 @@
             padding: 20px;
             font-size: 16px;
             color: white;
-            background-color: #172229;
-            border: 1px solid #1D2B34;
-            border-radius: 10px;
+            background-color: #006DAA;
+            border: 1px solid #3789BC;
+            border-radius: 20px;
             cursor: pointer;
             text-align: left;
+            height: auto;
+            box-sizing: border-box;
         }
 
         .view-locations-btn:hover {
-            background-color: #1D2B34;
+            background-color: #005A8C;
         }
 
         #batteryIdDisplay {
@@ -60,7 +62,7 @@
         }
 
         #amountPaid {
-            margin-top: -10px;
+            margin-top: 10px;
             margin-bottom: -10px;
             margin-left: 0px;
             margin-right: 0px;
@@ -70,7 +72,7 @@
             font-style: normal;
             color: #009FFF; /* Blue color for visibility */
             padding: 0px; /* Add some padding */
-            border-radius: 10px; /* Slightly rounded corners */
+            border-radius: 20px; /* Slightly rounded corners */
             display: inline-block; /* Keep it inline but apply styles properly */
         }
 
@@ -83,23 +85,41 @@
 
         #amountPaidContainer {
             background-color: #000000;
-            border-radius: 10px;
-            padding: 10px 20px;
+            border-radius: 20px;
+            padding: 20px;
             border: 1px solid #262626;
             text-align: left;
             flex: 1;
+            box-sizing: border-box;
         }
 
         /* New container with #FE402E background */
         #newContainer {
             background-color: #FE402E;
-            border-radius: 10px;
-            padding: 10px 20px;
-            border: 1px solid #262626;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #FF776B;
             text-align: left;
             flex: 1;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        .sizl-logo {
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+            width: auto;
+            height: 50%;
+            object-fit: contain;
+            z-index: 1;
+        }
+
+        #newContainer > div {
+            position: relative;
+            z-index: 2;
         }
 
         #newContainer:hover {
@@ -117,7 +137,7 @@
             font-style: normal;
             color: #FFFFFF;
             padding: 0px;
-            border-radius: 10px;
+            border-radius: 20px;
             display: inline-block;
         }
 
@@ -133,11 +153,12 @@
             color: white;
             background-color: #1F1F1F;
             border: 1px solid #262626;
-            border-radius: 10px;
+            border-radius: 20px;
             cursor: pointer;
             text-align: left;
             padding: 20px;
             margin-top: 8px;
+            box-sizing: border-box;
         }
 
         .support-btn:hover {
@@ -163,17 +184,15 @@
         <p id="elapsedTime">Loading...</p>
     </div>
 
-    <hr style="height: 1px; background-color: #262626; border: none;">
-
     <div class="containers-wrapper">
         <div id="amountPaidContainer">
             <p style="
                 margin: 0px;
-                font-size: 25px;
+                font-size: 20px;
                 font-family: Arial, sans-serif;
                 font-weight: bold;
                 font-style: normal;
-                color: #CCCCCC;
+                color: #FFFFFF;
                 width: fit-content;
             ">
                 Paid
@@ -182,15 +201,50 @@
         </div>
 
         <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+            <div style="
+                font-size: 25px;
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                color: #FFFFFF;
+                margin: 0px;
+            ">
+                $3 OFF
+            </div>
+            <div style="
+                font-size: 13px;
+                font-family: Arial, sans-serif;
+                color: #FFFFFF;
+                margin-top: 10px;
+                line-height: 1.3;
+            ">
+                Download and register the sizl app to get money back
+            </div>
         </div>
     </div>
 </div>
 
-<hr style="height: 1px; background-color: #262626; border: none;">
+<button class="view-locations-btn" onclick="window.open('https://cuublocations.glide.page/dl/d0a5f4', '_blank');">
+    <div style="
+        font-size: 25px;
+        font-weight: bold;
+    ">
+        Find locations to return
+    </div>
+    <div style="
+        font-size: 13px;
+        color: #9D9D9D;
+        margin-top: 10px;
+        opacity: 0;
+        height: 15px;
+    ">
+        &nbsp;
+    </div>
+</button>
 
 <button class="support-btn" onclick="contactSupport()">
     <div style="
         font-size: 25px;
+        font-weight: bold;
     ">
         Customer Support
     </div>
@@ -200,21 +254,6 @@
         margin-top: 10px;
     ">
         Questions, Complaints, Refunds
-    </div>
-</button>
-
-<button class="view-locations-btn" onclick="window.open('https://cuublocations.glide.page/dl/d0a5f4', '_blank');">
-    <div style="
-        font-size: 25px;
-    ">
-        Find locations to return
-    </div>
-    <div style="
-        font-size: 13px;
-        color: #009FFF;
-        margin-top: 10px;
-    ">
-        View Map
     </div>
 </button>
 
@@ -292,13 +331,11 @@
                 <p id="elapsedTime">${getTimeElapsed(borrowTime)}</p>
             </div>
 
-            <hr style="height: 1px; background-color: #262626; border: none;">
-
             <div class="containers-wrapper">
                 <div id="amountPaidContainer">
                     <p style="
                         margin: 0px;
-                        font-size: 25px;
+                        font-size: 20px;
                         font-family: Arial, sans-serif;
                         font-weight: bold;
                         font-style: normal;
@@ -311,6 +348,27 @@
                 </div>
 
                 <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+                    <div style="
+                        font-size: 20px;
+                        font-family: Arial, sans-serif;
+                        font-weight: bold;
+                        color: #FFFFFF;
+                        margin: 0px;
+                    ">
+                        $3 OFF
+                    </div>
+                    <div style="
+                        font-size: 13px;
+                        font-family: Arial, sans-serif;
+                        color: #FFFFFF;
+                        margin-top: 10px;
+                        line-height: 1.3;
+                    ">
+                        Download and registerr<br>
+                        the sizl app to get<br>
+                        money back
+                    </div>
+                    <img src="attached_assets/Sizl Logo_1751142416451.webp" class="sizl-logo" alt="Sizl Logo">
                 </div>
             </div>
         `;
@@ -345,13 +403,11 @@
                     </p>
                 </div>
 
-                <hr style="height: 1px; background-color: #262626; border: none;">
-
                 <div class="containers-wrapper">
                     <div id="amountPaidContainer">
                         <p style="
                             margin: 0px;
-                            font-size: 25px;
+                            font-size: 20px;
                             font-family: Arial, sans-serif;
                             font-weight: bold;
                             font-style: normal;
@@ -364,6 +420,27 @@
                     </div>
 
                     <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+                        <div style="
+                            font-size: 20px;
+                            font-family: Arial, sans-serif;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                            margin: 0px;
+                        ">
+                            $3 OFF
+                        </div>
+                        <div style="
+                            font-size: 13px;
+                            font-family: Arial, sans-serif;
+                            color: #FFFFFF;
+                            margin-top: 10px;
+                            line-height: 1.3;
+                        ">
+                            Download and registerr<br>
+                            the sizl app to get<br>
+                            money back
+                        </div>
+                        <img src="attached_assets/Sizl Logo_1751142416451.webp" class="sizl-logo" alt="Sizl Logo">
                     </div>
                 </div>
             `;
@@ -383,13 +460,11 @@
                         <p id="elapsedTime">${getTimeElapsed(borrowTime)}</p>
                     </div>
 
-                    <hr style="height: 1px; background-color: #262626; border: none;">
-
                     <div class="containers-wrapper">
                         <div id="amountPaidContainer">
                             <p style="
                                 margin: 0px;
-                                font-size: 25px;
+                                font-size: 20px;
                                 font-family: Arial, sans-serif;
                                 font-weight: bold;
                                 font-style: normal;
@@ -402,6 +477,27 @@
                         </div>
 
                         <div id="newContainer" onclick="window.open('https://join.sizl.com/download?gad_source=1&gad_campaignid=22219313015&gbraid=0AAAAAq09m4SKH1GEmpDrN-jVrpvEI0e-C&gclid=Cj0KCQjwpf7CBhCfARIsANIETVpv5sYTNK_JWvoYSKHzHIN21adMO_Wlc2TRaJzJirNyfWokgVHsSVcaAlicEALw_wcB&fbp=fb.1.1751129709957.223715049220526725', '_blank');">
+                            <div style="
+                                font-size: 20px;
+                                font-family: Arial, sans-serif;
+                                font-weight: bold;
+                                color: #FFFFFF;
+                                margin: 0px;
+                            ">
+                                $3 OFF
+                            </div>
+                            <div style="
+                                font-size: 13px;
+                                font-family: Arial, sans-serif;
+                                color: #FFFFFF;
+                                margin-top: 10px;
+                                line-height: 1.3;
+                            ">
+                                Download and registerr<br>
+                                the sizl app to get<br>
+                                money back
+                            </div>
+                            <img src="attached_assets/Sizl Logo_1751142416451.webp" class="sizl-logo" alt="Sizl Logo">
                         </div>
                     </div>
                 `;
@@ -437,3 +533,4 @@
 <link href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" rel="stylesheet">
 </body>
 </html>
+
