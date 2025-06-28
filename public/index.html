@@ -211,11 +211,6 @@
         return `$${amount.toFixed(2)}`;
     }
 
-    // function calculateAmountPaid(startTime) {
-    //     if (!startTime) return "$0.00";
-    //     const minutesElapsed = Math.ceil(DateTime.now().diff(startTime, 'minutes').minutes);  // Calculate elapsed time in minutes
-    //     return `$${(minutesElapsed * 3).toFixed(2)}`;  // Charge $3 per minute
-    // }
 
 
     function updateElapsedTime() {
@@ -231,25 +226,59 @@
         const batteryIdDisplay = document.getElementById("batteryIdDisplay");
 
         if (!batteryId) {
-            outputDiv.innerHTML = "<p><strong></strong></p>";
-            batteryIdDisplay.textContent = "";
+            // Demo mode
+            batteryIdDisplay.textContent = "Demo Battery";
+
+            // Generate a random time between 1 and 60 minutes ago
+            const randomMinutes = Math.floor(Math.random() * 60) + 1;
+            borrowTime = DateTime.now().minus({ minutes: randomMinutes });
+
+            outputDiv.innerHTML = `
+            <div id="elapsedTimeContainer">
+                <p style="
+                    margin: 0px;
+                    font-size: 25px;
+                    font-weight: bold;
+                    color: #CCCCCC;
+                ">
+                    Rent Duration (Demo)
+                </p>
+                <p id="elapsedTime">${getTimeElapsed(borrowTime)}</p>
+            </div>
+
+            <hr style="height: 1px; background-color: #262626; border: none;">
+
+            <div id="amountPaidContainer">
+                <p style="
+                    margin: 0px;
+                    font-size: 25px;
+                    font-family: 'Jersey 10', cursive;
+                    font-weight: 400;
+                    font-style: normal;
+                    color: #CCCCCC;
+                    width: fit-content;
+                ">
+                    Paid
+                </p>
+                <p id="amountPaid">$3.00</p>
+            </div>
+        `;
             return;
         }
 
         batteryIdDisplay.textContent = `${batteryId}`;
         const host = window.location.hostname;
         const port = window.location.port ? `:${window.location.port}` : '';
-        const apiUrl = `https://${host}${port}/api/battery/${batteryId}`;
+        const apiUrl = `http://${host}${port}/api/battery/${batteryId}`;
 
         try {
             const response = await fetch(apiUrl);
-            if (!response.ok) throw ("");
+            if (!response.ok) throw new Error("Battery not found");
 
             const data = await response.json();
             outputDiv.innerHTML = "";
 
             if (data.pGhtime) {
-                // Battery has been returned
                 const chiReturnTime = convertChinaToChicagoTime(data.pGhtime);
                 const finalAmountPaid = data.finalAmountPaid || calculateAmountPaid(convertChinaToChicagoTime(data.pBorrowtime), chiReturnTime);
 
@@ -283,39 +312,38 @@
                 </div>
             `;
             } else {
-                // Battery is still rented
                 borrowTime = convertChinaToChicagoTime(data.pBorrowtime);
                 if (borrowTime) {
                     outputDiv.innerHTML = `
-                <div id="elapsedTimeContainer">
-                    <p style="
-                        margin: 0px;
-                        font-size: 25px;
-                        font-weight: bold;
-                        color: #CCCCCC;
-                    ">
-                        Rent Duration
-                    </p>
-                    <p id="elapsedTime">${getTimeElapsed(borrowTime)}</p>
-                </div>
+                    <div id="elapsedTimeContainer">
+                        <p style="
+                            margin: 0px;
+                            font-size: 25px;
+                            font-weight: bold;
+                            color: #CCCCCC;
+                        ">
+                            Rent Duration
+                        </p>
+                        <p id="elapsedTime">${getTimeElapsed(borrowTime)}</p>
+                    </div>
 
-                <hr style="height: 1px; background-color: #262626; border: none;">
+                    <hr style="height: 1px; background-color: #262626; border: none;">
 
-                <div id="amountPaidContainer">
-                    <p style="
-                        margin: 0px;
-                        font-size: 25px;
-                        font-family: 'Jersey 10', cursive;
-                        font-weight: 400;
-                        font-style: normal;
-                        color: #CCCCCC;
-                        width: fit-content;
-                    ">
-                        Paid
-                    </p>
-                    <p id="amountPaid">${calculateAmountPaid(borrowTime)}</p>
-                </div>
-            `;
+                    <div id="amountPaidContainer">
+                        <p style="
+                            margin: 0px;
+                            font-size: 25px;
+                            font-family: 'Jersey 10', cursive;
+                            font-weight: 400;
+                            font-style: normal;
+                            color: #CCCCCC;
+                            width: fit-content;
+                        ">
+                            Paid
+                        </p>
+                        <p id="amountPaid">${calculateAmountPaid(borrowTime)}</p>
+                    </div>
+                `;
                 } else {
                     outputDiv.innerHTML = `<p><strong>Invalid Borrow Time</strong></p>`;
                 }
@@ -325,6 +353,7 @@
             console.error("Error:", error.message);
         }
     }
+
 
 
 
