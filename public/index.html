@@ -107,17 +107,16 @@
             position: relative;
         }
 
-        .sizl-logo {
+        .sizl-text {
             position: absolute;
+            font-size: 30px;
+            color: #FFFFFF;
+            font-family: Arial, sans-serif;
             right: 10px;
-            bottom: 10px;
-            width: auto;
-            height: 50%;
-            object-fit: contain;
-            z-index: 1;
+            bottom: 5px;
         }
 
-        #newContainer > div {
+        #newContainer > div:not(.sizl-text) {
             position: relative;
             z-index: 2;
         }
@@ -364,11 +363,11 @@
                         margin-top: 10px;
                         line-height: 1.3;
                     ">
-                        Download and registerr<br>
+                        Download and register<br>
                         the sizl app to get<br>
                         money back
                     </div>
-                    <img src="sizl_logo.jpeg" class="sizl-logo" alt="Sizl Logo">
+                    <div class="sizl-text"><i>s</i>izl</div>
                 </div>
             </div>
         `;
@@ -436,11 +435,11 @@
                             margin-top: 10px;
                             line-height: 1.3;
                         ">
-                            Download and registerr<br>
+                            Download and register<br>
                             the sizl app to get<br>
                             money back
                         </div>
-                        <img src="sizl_logo.jpeg" class="sizl-logo" alt="Sizl Logo">
+                        <div class="sizl-text"><i>s</i>izl</div>
                     </div>
                 </div>
             `;
@@ -493,11 +492,11 @@
                                 margin-top: 10px;
                                 line-height: 1.3;
                             ">
-                                Download and registerr<br>
+                                Download and register<br>
                                 the sizl app to get<br>
                                 money back
                             </div>
-                            <img src="sizl_logo.jpeg" class="sizl-logo" alt="Sizl Logo">
+                            <div class="sizl-text"><i>s</i>izl</div>
                         </div>
                     </div>
                 `;
