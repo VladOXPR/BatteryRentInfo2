@@ -416,7 +416,8 @@
             try {
                 const host = window.location.hostname;
                 const port = window.location.port ? `:${window.location.port}` : '';
-                const apiUrl = `http://${host}${port}/api/battery/${batteryId}`;
+                const protocol = window.location.protocol;
+                const apiUrl = `${protocol}//${host}${port}/api/battery/${batteryId}`;
                 
                 console.log('Checking battery:', batteryId);
                 const response = await fetch(apiUrl);
