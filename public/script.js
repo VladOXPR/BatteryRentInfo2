@@ -28,41 +28,55 @@ async function fetchBatteryData() {
     const outputDiv = document.getElementById("output");
     const batteryIdDisplay = document.getElementById("batteryIdDisplay");
 
+    // Demo mode if no battery ID
     if (!batteryId) {
-        outputDiv.innerHTML = "<p><strong>No Battery ID provided in URL.</strong></p>";
-        batteryIdDisplay.textContent = "";
+        generateDemoMode();
         return;
     }
 
-    batteryIdDisplay.textContent = `${batteryId}`;
+    // Set battery ID display
+    if (batteryIdDisplay) {
+        batteryIdDisplay.textContent = `${batteryId}`;
+    }
+
+    // Construct API URL
     const host = window.location.hostname;
     const port = window.location.port ? `:${window.location.port}` : '';
-    const apiUrl = `https://${host}${port}/api/battery/${batteryId}`;
+    const apiUrl = `http://${host}${port}/api/battery/${batteryId}`;
 
     try {
+        // Add loading state
+        if (outputDiv) {
+            outputDiv.classList.add('loading');
+        }
+
         const response = await fetch(apiUrl);
-        if (!response.ok) throw new Error("Battery not found.");
+        if (!response.ok) {
+            throw new Error("Battery not found");
+        }
 
         const data = await response.json();
-        outputDiv.innerHTML = "";
 
-        if (data.pGhtime) {
-            const chiReturnTime = convertChinaToChicagoTime(data.pGhtime);
-            outputDiv.innerHTML = `<p><strong>Battery Returned:</strong> ${chiReturnTime ? chiReturnTime.toFormat("yyyy-MM-dd HH:mm:ss") : "Invalid Return Time"}</p>`;
-        } else {
-            borrowTime = convertChinaToChicagoTime(data.pBorrowtime);
-            if (borrowTime) {
-                outputDiv.innerHTML = `
-                    <p><strong></strong> <span id="elapsedTime">${getTimeElapsed(borrowTime)}</span></p>
-                    <p><strong></strong> <span id="amountPaid">${calculateAmountPaid(borrowTime)}</span></p>
-                `;
-            } else {
-                outputDiv.innerHTML = `<p><strong>Invalid Borrow Time</strong></p>`;
-            }
+        // Remove loading state
+        if (outputDiv) {
+            outputDiv.classList.remove('loading');
+            // Clear existing content
+            outputDiv.innerHTML = "";
         }
+
+        // Check if battery has been returned
+        if (data.pGhtime) {
+            generateReturnedDisplay(data);
+        } else {
+            generateActiveRentalDisplay(data);
+        }
+
     } catch (error) {
-        outputDiv.innerHTML = `<p>Error: ${error.message}</p>`;
-        console.error("Error:", error.message);
+        if (outputDiv) {
+            outputDiv.classList.remove('loading');
+        }
+        showError(error.message);
+        console.error("Error fetching battery data:", error.message);
     }
 }
 
